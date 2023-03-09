@@ -4,7 +4,6 @@ const Player = require("./entity/Player.js");
 const playerJoinEvent = require("./network/_playerJoinEvent.js");
 const playerChatEvent = require("./network/_playerChatEvent.js");
 const playerDisconnectEvent = require("./network/_playerDisconnectEvent.js");
-const generateRoomId = require("./utils/_generateRoomId.js");
 const ProgramState = require("./utils/_programState.js");
 const STATE = ProgramState.DEVELOPMENT;
 
@@ -32,7 +31,7 @@ class Server {
   registerSocketServer() {
 
     this.ioServer.on("connection", (socket) => {
-      console.log(`[CONNECT] ${socket.id} :: ${generateRoomId()}`);
+      console.log(`[CONNECT] ${socket.id}`);
       socket.on("PlayerJoinEvent", (data) => playerJoinEvent(this, socket, data));
       socket.on("PlayerChatEvent", (data) => playerChatEvent(this, socket, data));
       socket.on("disconnect", () => playerDisconnectEvent(this, socket, null));
